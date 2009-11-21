@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %}RuTest companies{% endblock %}
+
+{% block content%}
+<h1>Список всех  компаний</h1>  
+<ul>
+    {% for company in company_list %}
+    <li><a href="/companies/{{ company.pk }}">{{ company.name }}Личная страница компании</a></li>
+    {% endfor %}
+</ul>
+{% endblock %}

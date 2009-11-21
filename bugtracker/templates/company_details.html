@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %}RuTest companies{% endblock %}
+
+{% block content%}
+
+<h1>Личная страница компании</h1>
+<ul>
+    {# Проекты компании, будет таблица, пока список #}
+    {% for project in projects %}
+    <li><a href="/projects/{{ project.pk }}">{{ project.name }}</a></li>
+    {% endfor %}
+</ul>
+{# БОЛЬШАЯ кнопка для добавления проекта#}
+<a href="/projects/new">Добавить проект</a></li>
+{% endblock %}

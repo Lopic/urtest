@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %}RuTest project{% endblock %}
+
+{% block content%}
+<h1>Список всех проектов</h1>
+<ul>
+    {% for project in projects %}
+    <li><a href="/projects/{{ project.pk }}">{{ project.name }}</a></li>
+    {% endfor %}
+</ul>
+{% endblock %}

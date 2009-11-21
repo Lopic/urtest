@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}RuTest project{% endblock %}
+
+{% block content%}
+<h1>Проект {{ project.name }}</h1>
+{# Информация о проекте#}
+<p>Этот проект был разработан компанией <a href="/companies/{{ project.company.pk }}">{{ project.company.name }}</a></p>
+<p>Этот проект тестируется следующими тестировщиками:
+<ul>
+    {% for tester in project.testers %}
+    <li><a href="/testers/{{ tester.pk }}">{{ tester.name}}</a></li>
+    {% endfor %}
+</ul>
+</p>
+<p>В этом проекте были найдены следующие баги:
+<ul>
+    {% for bug in project.bugs %}
+    <li>{{ bug.name}}</li>
+    {% endfor %}
+</ul>
+</p>
+{% endblock %}

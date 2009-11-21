@@ -1,15 +1,49 @@
 {% load webdesign %}
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html>
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<link rel="stylesheet" type="text/css" href="/site_media/style.css" />
-		<title>{% block title %}RuTest{% endblock %}</title>
-	</head>
-	<body>
-		<div id="header">{% block header %}RuTest{% endblock %}</div>
-		<div id="sidebar">{% block sidebar %}Sidebar{% endblock %}</div>
-		<div id="content">{% block content %}<p>{% lorem %}</p>{% endblock %}</div>
-		<div id="footer">{% block footer %}Footer{% endblock %}</div>
-	</body>
+    <head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link rel="stylesheet" type="text/css" href="/site_media/style.css" />
+	<title>{% block title %}RuTest{% endblock %}</title>
+    </head>
+    <body>
+	<div id="header">{% block header %}RuTest{% endblock %}</div>
+	<div id="sidebar">
+	    {% block sidebar %}
+	    <ul>
+		<li><a href="/">Главная страница</a></li>
+
+		{% if authorised %}
+		{% if is_tester %}
+		<li><a href="/testers/{{ pk }}">Личная страница</a></li>
+		{% else %}
+		<li><a href="/companies/{{ pk }}">Личная страница</a></li>
+		{% endif %}
+		{% endif %}
+
+		<li>
+		{% if authorised %}
+		<a href="/logout">Выйти</a>
+		{% else %}
+		<a href="/login">Войти</a>
+		{% endif %}
+		</li>
+
+		<li><a href="/projects">Проекты</a></li>
+		<li><a href="/testers">Тестировщики</a></li>
+		<li><a href="/companies">Компании</a></li>
+	    </ul>
+	    {% endblock %}
+	</div>
+	<div id="content">
+	    {% block content %}
+	    <p>{% lorem %}</p>
+	    {% endblock %}
+	</div>
+	<div id="footer">
+	    {% block footer %}
+	    Footer
+	    {% endblock %}
+	</div>
+    </body>
 </html>
