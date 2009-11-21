@@ -1,0 +1,15 @@
+{% load webdesign %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<link rel="stylesheet" type="text/css" href="/site_media/style.css" />
+		<title>{% block title %}RuTest{% endblock %}</title>
+	</head>
+	<body>
+		<div id="header">{% block header %}RuTest{% endblock %}</div>
+		<div id="sidebar">{% block sidebar %}Sidebar{% endblock %}</div>
+		<div id="content">{% block content %}<p>{% lorem %}</p>{% endblock %}</div>
+		<div id="footer">{% block footer %}Footer{% endblock %}</div>
+	</body>
+</html>
