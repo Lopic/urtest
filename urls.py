@@ -8,7 +8,7 @@ admin.autodiscover()
 
 from django.views.generic.simple import direct_to_template
 from django.views.generic import list_detail
-from urtest.bugtracker.models import Project, Company
+from urtest.bugtracker.models import Project, Company, Tester
 
 project_info = {
 	"queryset": Project.objects.all(),
@@ -20,6 +20,12 @@ company_info = {
 	"queryset": Company.objects.all(),
 	"template_name": "company_list.html",
 	"template_object_name": "company",
+}
+
+tester_info = {
+	"queryset": Tester.objects.all(),
+	"template_name": "tester_list.html",
+	"template_object_name": "tester",
 }
 
 # Родные для сайта виды
@@ -38,7 +44,7 @@ urlpatterns = patterns('urtest.bugtracker.views',
 
     # Страницы для тестеров:
     # Список всех тестеров
-    (r'^testers/$', 'testers_list'),
+    (r'^testers/$', list_detail.object_list, tester_info),
     # Личная страница тестера
     (r'^testers/(\d+)$', 'tester_details'),
     # Регистрация нового тестера
@@ -66,7 +72,9 @@ urlpatterns = patterns('urtest.bugtracker.views',
     # Uncomment the admin/doc line below and add 'django.contrib.admindocs'
     # to INSTALLED_APPS to enable admin documentation:
     # (r'^admin/doc/', include('django.contrib.admindocs.urls')),
+)
 
+urlpatterns += patterns('',
     # Uncomment the next line to enable the admin:
     (r'^admin/', include(admin.site.urls)),
 )

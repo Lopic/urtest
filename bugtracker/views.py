@@ -49,8 +49,6 @@ def company_detail(request, pk):
 def tester_registraion(request):
     return render_to_response('tester_registraion.html')
 
-def testers_list(request):
-    return render_to_response('testers_list.html', {'pk': 12})
 
 def tester_details(request,project):
     return render_to_response('tester_details.html', {'pk': 22})
