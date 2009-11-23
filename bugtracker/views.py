@@ -50,8 +50,13 @@ def tester_registraion(request):
     return render_to_response('tester_registraion.html')
 
 
-def tester_details(request,project):
-    return render_to_response('tester_details.html', {'pk': 22})
+def tester_detail(request, pk):
+    try:
+        tester = Tester.objects.get(pk=pk)
+    except Tester.DoesNotExist:
+        raise Http404
+    projects = tester.projects.all()
+    return render_to_response('tester_detail.html', locals())
 
 
 # проекты
