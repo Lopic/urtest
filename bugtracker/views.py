@@ -21,15 +21,6 @@ def add_bug(request):
         form = BugForm()
     return render_to_response('addbug.html',{'form': form})
 
-       
-# авторизация
-def login(request):
-    return render_to_response('login.html')
-
-
-def logout(request):
-    return render_to_response('logout.html')
-
 
 # компании
 def company_registraion(request):
