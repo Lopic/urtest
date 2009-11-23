@@ -12,7 +12,7 @@ from urtest.bugtracker.models import Project
 
 project_info = {
 	"queryset": Project.objects.all(),
-	"template_name": "projects_list.html",
+	"template_name": "project_list.html",
 	"template_object_name": "project",
 }
 

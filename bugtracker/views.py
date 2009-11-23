@@ -62,6 +62,6 @@ def project_detail(request, pk):
         raise Http404
     testers = project.testers.all()
     bugs = project.bugs.all()
-    return render_to_response('bugtracker/project_detail.html', locals())
+    return render_to_response('project_detail.html', locals())
 
 
