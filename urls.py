@@ -8,12 +8,18 @@ admin.autodiscover()
 
 from django.views.generic.simple import direct_to_template
 from django.views.generic import list_detail
-from urtest.bugtracker.models import Project
+from urtest.bugtracker.models import Project, Company
 
 project_info = {
 	"queryset": Project.objects.all(),
 	"template_name": "project_list.html",
 	"template_object_name": "project",
+}
+
+company_info = {
+	"queryset": Company.objects.all(),
+	"template_name": "company_list.html",
+	"template_object_name": "company",
 }
 
 # Родные для сайта виды
@@ -40,7 +46,7 @@ urlpatterns = patterns('urtest.bugtracker.views',
 
     # Страницы компаний:
     # Список всех компаний
-    (r'^companies/$', 'companies_list'),
+    (r'^companies/$', list_detail.object_list, company_info),
     # Личная страница компании
     (r'^companies/(\d+)$', 'company_details'),
     # Регистрация новой компании
