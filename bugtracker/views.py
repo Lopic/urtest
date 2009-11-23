@@ -2,6 +2,8 @@
 
 from django.http import HttpResponseRedirect, Http404
 from django.shortcuts import render_to_response
+from django.contrib.auth.decorators import login_required
+
 from models import Bug, Company, Project, Tester
 from forms import BugForm
 
@@ -26,7 +28,7 @@ def add_bug(request):
 def company_registraion(request):
     return render_to_response('company_registraion.html')
 
-
+@login_required
 def company_detail(request, pk):
     try:
 	company = Company.objects.get(pk=pk)
@@ -40,7 +42,7 @@ def company_detail(request, pk):
 def tester_registraion(request):
     return render_to_response('tester_registraion.html')
 
-
+@login_required
 def tester_detail(request, pk):
     try:
         tester = Tester.objects.get(pk=pk)
@@ -54,7 +56,7 @@ def tester_detail(request, pk):
 def new_project(request):
     return render_to_response('new_project.html')
 
-
+@login_required
 def project_detail(request, pk):
     try:
         project = Project.objects.get(pk=pk)
