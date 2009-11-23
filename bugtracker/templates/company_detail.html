@@ -3,9 +3,9 @@
 
 {% block content%}
 
-<h1>Личная страница компании</h1>
+<h1>Личная страница компании {{ company.name }}</h1>
+<p>Эта компания разработала следующие проекты:</p>
 <ul>
-    {# Проекты компании, будет таблица, пока список #}
     {% for project in projects %}
     <li><a href="/projects/{{ project.pk }}">{{ project.name }}</a></li>
     {% endfor %}

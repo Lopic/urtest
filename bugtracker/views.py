@@ -35,8 +35,13 @@ def company_registraion(request):
 def companies_list(request):
     return render_to_response('companies_list.html', {'pk': 12})
 
-def company_details(request,project):
-    return render_to_response('company_details.html', {'pk': 13})
+def company_detail(request, pk):
+    try:
+	company = Company.objects.get(pk=pk)
+    except Company.DoesNotExist:
+	raise Http404
+    projects = company.projects.all()
+    return render_to_response('company_detail.html', locals())
        
 # тестеры
 def tester_registraion(request):

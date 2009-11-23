@@ -48,7 +48,7 @@ urlpatterns = patterns('urtest.bugtracker.views',
     # Список всех компаний
     (r'^companies/$', list_detail.object_list, company_info),
     # Личная страница компании
-    (r'^companies/(\d+)$', 'company_details'),
+    (r'^companies/(\d+)$', 'company_detail'),
     # Регистрация новой компании
     (r'^companies/register$', 'company_registraion'),
 
