@@ -10,28 +10,36 @@ class Tester(User):
         ('h', 'Опытный тестировщик'),
         ('g', 'Профессиональный тестировщик'),
     )
-    experience = models.IntegerField("опыт (лет)")
-    qualification = models.CharField("квалификация", max_length=1,
-                                     choices=QUALIFICATION_CHOICES,
-                                     default='l')
-    languages = models.CharField("знание языков", max_length=100)
-    program_languages = models.CharField("языки программирования", max_length=200)
-    address = models.CharField("адрес", max_length=200)
+    user = models.OneToOneField(User, parent_link=True)
+    # Имя, фамилия, email наследуются
     birthdate = models.DateField("дата рождения")
-    hobby = models.TextField("хобби", blank=True)
-    about = models.TextField("о себе", blank=True)
-    registration_date = models.DateField("дата регистрации", auto_now_add=True)
+    address = models.CharField("адрес", max_length=200)
 
+    # Участие в проектах
     projects = models.ManyToManyField('Project', blank=True,
                                         related_name='testers',
                                         verbose_name="проекты")
 
+    languages = models.CharField("языки общения", max_length=100)
+    program_languages = models.CharField("языки программирования", max_length=200)
+    
+    experience = models.IntegerField("опыт (лет)")
+    qualification = models.CharField("квалификация", max_length=1,
+                                     choices=QUALIFICATION_CHOICES,
+                                     default='l')
+                                     
+    about = models.TextField("о себе", blank=True)
+
+    def _get_full_name(self):
+        return self.user.get_full_name()
+    name = property(_get_full_name)
+    
     class Meta:
         verbose_name = "тестер"
         verbose_name_plural = "тестеры"
 
     def __unicode__(self):
-        return "%s %s" % (self.name, self.surname)
+        return self.name
 
 
 class Company(User):
@@ -40,15 +48,15 @@ class Company(User):
         ('y', 'Юридическое лицо'),
         ('f', 'Физическое лицо'),
     )
-    name = models.CharField("название", max_length=100)
+    user = models.OneToOneField(User, parent_link=True)
+    # Наследуются имя, фамилия.
+    # Либо сделать их ФИО ответственного, либо игнорировать
+    name = models.CharField("название компании", max_length=100)
     type = models.CharField("Лицо", max_length=1, choices=TYPE_CHOICES,
                             default='y')
     #email = models.EmailField("e-mail")
     address = models.CharField("адрес", max_length=200)
-    registration_date = models.DateField("дата регистрации", auto_now_add=True)
-
-    #account = models.OneToOneField(User)
-
+    
     class Meta:
         verbose_name = "компания"
         verbose_name_plural = "компании"
@@ -69,14 +77,17 @@ class Project(models.Model):
     company = models.ForeignKey('Company', related_name='projects',
                                 verbose_name="разработчик")
     description = models.TextField("описание")
+
     level = models.CharField("размер", max_length=1, choices=LEVEL_CHOICES,
                              default='l')
     submit_date = models.DateField("дата размещения", auto_now_add=True)
     planned_date = models.DateField("предполагаемая дата сдачи")
+
+    document_languages = models.CharField("язык документации", max_length=100)
+    program_languages = models.CharField("язык программирования", max_length=100)
+
     paid = models.IntegerField("выплачено", blank=True, null=True)
     bugget = models.IntegerField("бюджет", blank=True, null=True)
-    program_languages = models.CharField("язык программирования", max_length=100)
-    document_languages = models.CharField("язык документации", max_length=100)
 
     class Meta:
         verbose_name = "проект"
@@ -96,7 +107,7 @@ class Bug(models.Model):
     )
     name = models.CharField("название", max_length=100)
     severity = models.CharField("критичность", max_length=1, choices=SEVERITY_CHOICES)
-    submit_date = models.DateField("дата добавления")
+    submit_date = models.DateField("дата добавления", auto_now_add=True)
     description = models.TextField("описание")
 
     project = models.ForeignKey('Project', related_name='bugs',
