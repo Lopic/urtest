@@ -2,14 +2,17 @@
 {% block title %}RuTest login{% endblock %}
 {% block content%}
 <h1>Авторизация</h1>
-{# Здесь идет форма для авторизации #}
-{# Либо редирект, если уже авторизован #}
+
+<form method="post" action="{% url django.contrib.auth.views.login %}">
+    {{ form.as_p }}
+    <input type="submit" value="Войти" />
+    <input type="hidden" name="next" value="{{ next }}" />
+</form>
 
 {% if not authorised %}
-<li><a href="/testers/register">Регистрация тестировщиков</a></li>
-<li><a href="/companies/register">Регистрация компании</a></li>        
+<a href="/companies/register">Регистрация компании</a>
+<a href="/testers/register">Регистрация тестировщиков</a>
 {% endif %}
 
-{# Здесь будет форма авторизации #}     
 </ul>
 {% endblock %}

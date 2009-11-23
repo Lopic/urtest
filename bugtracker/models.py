@@ -2,7 +2,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-class Tester(models.Model):
+class Tester(User):
     """Модель тестера"""
     QUALIFICATION_CHOICES = (
         ('l', 'Начинающий'),
@@ -10,10 +10,6 @@ class Tester(models.Model):
         ('h', 'Опытный тестировщик'),
         ('g', 'Профессиональный тестировщик'),
     )
-    name = models.CharField("имя", max_length=30)
-    surname = models.CharField("фамилия", max_length=30)
-    email = models.EmailField("e-mail")
-    
     experience = models.IntegerField("опыт (лет)")
     qualification = models.CharField("квалификация", max_length=1,
                                      choices=QUALIFICATION_CHOICES,
@@ -30,8 +26,6 @@ class Tester(models.Model):
                                         related_name='testers',
                                         verbose_name="проекты")
 
-    account = models.OneToOneField(User)
-
     class Meta:
         verbose_name = "тестер"
         verbose_name_plural = "тестеры"
@@ -40,7 +34,7 @@ class Tester(models.Model):
         return "%s %s" % (self.name, self.surname)
 
 
-class Company(models.Model):
+class Company(User):
     """Модель компании"""
     TYPE_CHOICES = (
         ('y', 'Юридическое лицо'),
@@ -49,11 +43,11 @@ class Company(models.Model):
     name = models.CharField("название", max_length=100)
     type = models.CharField("Лицо", max_length=1, choices=TYPE_CHOICES,
                             default='y')
-    email = models.EmailField("e-mail")
+    #email = models.EmailField("e-mail")
     address = models.CharField("адрес", max_length=200)
     registration_date = models.DateField("дата регистрации", auto_now_add=True)
 
-    account = models.OneToOneField(User)
+    #account = models.OneToOneField(User)
 
     class Meta:
         verbose_name = "компания"

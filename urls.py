@@ -33,10 +33,6 @@ tester_info = {
 urlpatterns = patterns('urtest.bugtracker.views',
     # Главная страница
     (r'^$', direct_to_template, {'template': 'base.html'}),
-    # Авторизация
-    (r'^login$', 'login'),
-    # Выход
-    (r'^logout$', 'logout'),
 
     # Старые примеры работы с багами
     #(r'^bugs/$', 'bugs_list'),
@@ -77,6 +73,13 @@ urlpatterns = patterns('urtest.bugtracker.views',
 urlpatterns += patterns('',
     # Uncomment the next line to enable the admin:
     (r'^admin/', include(admin.site.urls)),
+)
+
+urlpatterns += patterns('django.contrib.auth.views',
+    # Авторизация
+    (r'^login$', 'login', {'template_name': 'login.html'}),
+    # Выход
+    (r'^logout$', 'logout', {'template_name': 'logout.html'}),
 )
 
 # Статические файлы: CSS и тд

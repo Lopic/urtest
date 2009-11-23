@@ -29,11 +29,15 @@
                     {% endif %}
                     {% endif %}
 
+                    {% if user.is_authenticated %}
+		    <li>Приветствуем, {{ user.username }}</li>
                     <li>
-                    {% if authorised %}
                     <a href="/logout">Выйти</a>
+                    </li>
                     {% else %}
+                    <li>
                     <a href="/login">Войти</a>
+                    </li>
                     {% endif %}
                     </li>
 
