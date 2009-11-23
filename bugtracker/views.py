@@ -2,7 +2,7 @@
 
 from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response
-from models import Bug
+from models import Bug, Company, Project, Tester
 from forms import BugForm
 
 def bugs_list(request):
@@ -47,15 +47,20 @@ def testers_list(request):
 
 def tester_details(request,project):
     return render_to_response('tester_details.html', {'pk': 22})
-
-      # Пректы
+      
 def new_project(request):
     return render_to_response('new_project.html')
 
 def projects_list(request):
-    return render_to_response('projects_list.html', {'pk': 12})
+    return render_to_response('projects_list.html')
 
-def project_details(request,project):
-    return render_to_response('project_details.html')
+def project_detail(request, pk):
+    try:
+        project = Project.objects.get(pk=pk)
+    except Project.DoesNotExist:
+        raise Http404
+    testers = project.testers.all()
+    bugs = project.bugs.all()
+    return render_to_response('bugtracker/project_detail.html', locals())
 
 

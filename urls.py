@@ -7,6 +7,14 @@ from django.contrib import admin
 admin.autodiscover()
 
 from django.views.generic.simple import direct_to_template
+from django.views.generic import list_detail
+from urtest.bugtracker.models import Project
+
+project_info = {
+	"queryset": Project.objects.all(),
+	"template_name": "projects_list.html",
+	"template_object_name": "project",
+}
 
 # Родные для сайта виды
 # Импорт делается автоматически
@@ -40,9 +48,9 @@ urlpatterns = patterns('urtest.bugtracker.views',
 
     # Страницы проектов:
     # Список всех проектов
-    (r'^projects/$', 'projects_list'),
+    (r'^projects/$', list_detail.object_list, project_info),
     # Страница проекта
-    (r'^projects/(\d+)$', 'project_details'),
+    (r'^projects/(\d+)', 'project_detail'),
     # Добавление проекта
     (r'^projects/new$', 'new_project'),
 

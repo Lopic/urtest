@@ -3,18 +3,18 @@
 
 {% block content%}
 <h1>Проект {{ project.name }}</h1>
-{# Информация о проекте#}
 <p>Этот проект был разработан компанией <a href="/companies/{{ project.company.pk }}">{{ project.company.name }}</a></p>
+<p>{{ project.description }}</p>
 <p>Этот проект тестируется следующими тестировщиками:
 <ul>
-    {% for tester in project.testers %}
+    {% for tester in testers %}
     <li><a href="/testers/{{ tester.pk }}">{{ tester.name}}</a></li>
     {% endfor %}
 </ul>
 </p>
 <p>В этом проекте были найдены следующие баги:
 <ul>
-    {% for bug in project.bugs %}
+    {% for bug in bugs %}
     <li>{{ bug.name}}</li>
     {% endfor %}
 </ul>

@@ -4,7 +4,7 @@
 {% block content%}
 <h1>Список всех проектов</h1>
 <ul>
-    {% for project in projects %}
+    {% for project in project_list %}
     <li><a href="/projects/{{ project.pk }}">{{ project.name }}</a></li>
     {% endfor %}
 </ul>
