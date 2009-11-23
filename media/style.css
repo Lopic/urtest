@@ -7,7 +7,7 @@ div#header h1{font-style: normal; font-weight: normal; font-size: xx-large; font
 padding-left:10px;background: #EEE;}
 div#content p{line-height:1.4}
 div#sidebar{background:#99ccff}
-div#footer{background: #333;color: #FFF}
+div#footer{text-align: right; background: #333;color: #FFF}
 div#footer p{margin:0;padding:5px 10px}
 div#footer a{display:inline;padding:0;color: #C6D5FD}
 
