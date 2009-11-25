@@ -2,6 +2,7 @@
 
 from django.http import HttpResponseRedirect, Http404
 from django.shortcuts import render_to_response
+from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
 
 from models import Bug, Company, Project, Tester
@@ -10,7 +11,8 @@ from forms import BugForm
 
 def bugs_list(request):
     bugs = Bug.objects.all()
-    return render_to_response('buglist.html', {'bugs': bugs})
+    return render_to_response('buglist.html', {'bugs': bugs},
+                              context_instance=RequestContext(request))
 
 
 def add_bug(request):
@@ -21,7 +23,8 @@ def add_bug(request):
             return HttpResponseRedirect('/bugs/')
     else:
         form = BugForm()
-    return render_to_response('addbug.html',{'form': form})
+    return render_to_response('addbug.html',{'form': form},
+                              context_instance=RequestContext(request))
 
 
 # компании
@@ -31,11 +34,12 @@ def company_registraion(request):
 @login_required
 def company_detail(request, pk):
     try:
-	company = Company.objects.get(pk=pk)
+        company = Company.objects.get(pk=pk)
     except Company.DoesNotExist:
-	raise Http404
+        raise Http404
     projects = company.projects.all()
-    return render_to_response('company_detail.html', locals())
+    return render_to_response('company_detail.html', locals(),
+                              context_instance=RequestContext(request))
 
        
 # тестеры
@@ -49,7 +53,8 @@ def tester_detail(request, pk):
     except Tester.DoesNotExist:
         raise Http404
     projects = tester.projects.all()
-    return render_to_response('tester_detail.html', locals())
+    return render_to_response('tester_detail.html', locals(),
+                              context_instance=RequestContext(request))
 
 
 # проекты
@@ -64,6 +69,7 @@ def project_detail(request, pk):
         raise Http404
     testers = project.testers.all()
     bugs = project.bugs.all()
-    return render_to_response('project_detail.html', locals())
+    return render_to_response('project_detail.html', locals(),
+                              context_instance=RequestContext(request))
 
 
