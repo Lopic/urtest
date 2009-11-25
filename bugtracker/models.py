@@ -31,7 +31,12 @@ class Tester(User):
     about = models.TextField("о себе", blank=True)
 
     def _get_full_name(self):
-        return self.user.get_full_name()
+        full_name = self.user.get_full_name()
+        if len(full_name) == 0:
+            return self.user.username
+        else:
+            return self.user.get_full_name()
+
     name = property(_get_full_name)
     
     class Meta:
