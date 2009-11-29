@@ -1,8 +1,11 @@
 {% extends 'base.html' %}
 {% block title %}RuTest regestration {% endblock %}
 {% block header %}RuTest company  registration {% endblock %}
-
 {% block content%}
-  <h1>Регистрация заказчиков</h1>
+<h1>Регистрация заказчиков</h1>
+<form action="/companies/register" method="post">
+{{ form.as_p }}
+<input type="submit" value="Зарегистрироваться" />
+</form>
 {% endblock %}
 

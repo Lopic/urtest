@@ -6,7 +6,7 @@ from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
 
 from models import Bug, Company, Project, Tester
-from forms import BugForm
+from forms import BugForm, ProjectForm, TesterForm, CompanyForm
 
 
 def bugs_list(request):
@@ -29,7 +29,14 @@ def add_bug(request):
 
 # компании
 def company_registraion(request):
-    return render_to_response('company_registraion.html')
+    if request.method == 'POST':
+        form = CompanyForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/companies/')
+    else:
+        form = CompanyForm()
+    return render_to_response('company_registraion.html',{'form': form})
 
 @login_required
 def company_detail(request, pk):
@@ -44,7 +51,14 @@ def company_detail(request, pk):
        
 # тестеры
 def tester_registraion(request):
-    return render_to_response('tester_registraion.html')
+    if request.method == 'POST':
+        form = TesterForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/testers/')
+    else:
+        form = TesterForm()
+    return render_to_response('tester_registraion.html',{'form': form})
 
 @login_required
 def tester_detail(request, pk):
@@ -59,7 +73,14 @@ def tester_detail(request, pk):
 
 # проекты
 def new_project(request):
-    return render_to_response('new_project.html')
+    if request.method == 'POST':
+        form = ProjectForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/projects/')
+    else:
+        form = ProjectForm()
+    return render_to_response('new_project.html',{'form': form})
 
 @login_required
 def project_detail(request, pk):

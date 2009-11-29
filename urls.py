@@ -35,8 +35,8 @@ urlpatterns = patterns('urtest.bugtracker.views',
     (r'^$', direct_to_template, {'template': 'base.html'}),
 
     # Старые примеры работы с багами
-    #(r'^bugs/$', 'bugs_list'),
-    #(r'^bugs/add$', 'add_bug'),
+    (r'^bugs/$', 'bugs_list'),
+    (r'^bugs/add$', 'add_bug'),
 
     # Страницы для тестеров:
     # Список всех тестеров
